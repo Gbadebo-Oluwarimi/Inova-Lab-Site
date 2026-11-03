@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { AppointmentButton } from "@/components/appointment-button";
 
 const navigation = [
   { name: "Home", href: "/" },
@@ -44,33 +45,11 @@ function InovaLogo() {
   );
 }
 
-function AppointmentLink() {
-  return (
-    <Link
-      href="/appointment"
-      className="appointment-clip group inline-flex min-h-11 w-full items-center justify-center gap-3 bg-[#dce2ff] px-6 text-[15px] font-semibold text-[#071b50] transition-colors hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white lg:w-auto"
-    >
-      <span className="transition-transform group-hover:translate-x-1" aria-hidden="true">
-        <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none">
-          <path
-            d="M4 12h15m-6-6 6 6-6 6"
-            stroke="currentColor"
-            strokeWidth="1.7"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </span>
-      Appointment
-    </Link>
-  );
-}
-
 export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="absolute inset-x-0 top-8 z-40 border-b border-white/15 bg-[#06142d]/20 backdrop-blur-[2px]">
+    <header className="absolute inset-x-0 top-8 z-40 bg-[#06142d]/20 backdrop-blur-[2px]">
       <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between gap-5 px-5 sm:px-8 md:h-[86px] md:px-10 lg:px-12">
         <InovaLogo />
 
@@ -87,7 +66,7 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden lg:block">
-          <AppointmentLink />
+          <AppointmentButton compact />
         </div>
 
         <button
@@ -136,7 +115,7 @@ export function SiteHeader() {
               </Link>
             ))}
             <div className="pt-1">
-              <AppointmentLink />
+              <AppointmentButton compact />
             </div>
           </div>
         </nav>
