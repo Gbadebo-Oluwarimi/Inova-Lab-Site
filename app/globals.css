@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+:root {
+	color-scheme: light;
+	font-family: var(--font-gellix), sans-serif;
+	font-synthesis: none;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+body {
+	margin: 0;
+}
+
+.appointment-clip {
+	clip-path: polygon(7% 0, 100% 0, 93% 100%, 0 100%);
+}
