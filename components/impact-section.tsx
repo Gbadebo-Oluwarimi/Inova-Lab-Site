@@ -54,19 +54,19 @@ const statistics = [
     number: "1,000+",
     title: "Patients supported",
     description:
-      "People and families supported with diagnostic services and clear guidance.",
+      "We support individuals, families, and clinicians with laboratory testing and diagnostic services, offering clear guidance and dependable information to help them take the next step in care.",
   },
   {
     number: "3",
     title: "Core values",
     description:
-      "Accuracy, compassion and trust guide the way we care for every patient.",
+      "Accuracy, compassion, and trust shape how we handle samples, communicate findings, and support each person throughout their diagnostic visit.",
   },
   {
     number: "1",
     title: "Abuja centre",
     description:
-      "Visit our diagnostic centre at 1 Petrosyn Drive in Gwarinpa.",
+      "Our Gwarinpa diagnostic centre brings laboratory and diagnostic services together in one accessible location at 1 Petrosyn Drive, Abuja.",
   },
 ];
 
@@ -235,16 +235,16 @@ export default function ImpactSection() {
           </div>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 lg:mt-20">
+        <div className="mt-16 grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6 lg:mt-20 lg:gap-10">
           {statistics.map((stat) => (
-            <div key={stat.title} className="rounded-2xl border border-white/[0.08] bg-white/[0.035] p-5 sm:p-6 lg:p-7">
+            <div key={stat.title} className="py-1 sm:pr-4 lg:pr-8">
               <p className="text-[36px] font-semibold tracking-[-0.04em] text-[#cbd3ff] sm:text-[42px]">
                 {stat.number}
               </p>
               <h3 className="mt-2 text-[13px] font-semibold text-white sm:text-[14px]">
                 {stat.title}
               </h3>
-              <p className="mt-2 max-w-[310px] text-[11px] leading-[1.75] text-white/55">
+              <p className="mt-2 max-w-[380px] text-[12px] leading-[1.8] text-white/60 sm:text-[11px] lg:text-[12px]">
                 {stat.description}
               </p>
             </div>

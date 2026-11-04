@@ -10,6 +10,9 @@ const securityHeaders = [
 ];
 
 const nextConfig: NextConfig = {
+  experimental: {
+    useTypeScriptCli: false,
+  },
   cacheComponents: true,
   partialPrefetching: true,
   compress: true,

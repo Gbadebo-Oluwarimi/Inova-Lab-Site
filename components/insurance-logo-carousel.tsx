@@ -86,13 +86,13 @@ export function InsuranceLogoCarousel() {
           id="insurance-heading"
           className="max-w-full shrink-0 text-center text-[15px] font-medium leading-[1.3] sm:text-[17px] md:max-w-[210px] md:text-left md:text-[19px]"
         >
-          Insured by the following companies
+          Health insurance providers we work with
         </h2>
         <div className="hidden h-[72px] w-px shrink-0 bg-white/35 md:block" />
         <div
           className="insurer-marquee w-full min-w-0 md:flex-1"
           role="region"
-          aria-label="Insurance company logos"
+          aria-label="Health insurance provider logos"
         >
           <div className="insurer-track">
             {[0, 1].map((copy) => (
