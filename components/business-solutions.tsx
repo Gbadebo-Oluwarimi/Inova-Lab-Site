@@ -1,55 +1,95 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import businessPhoto from "../inova-comps/inova huge img.jpg";
+import { useGSAP } from "@gsap/react";
+import businessPhoto from "../inova-comps/doctor girk.jpg";
+import { AppointmentButton } from "./appointment-button";
 
-const partners = ["TESLA", "G Pay", "stripe", "enif"];
+gsap.registerPlugin(ScrollTrigger, useGSAP);
 
-export function BusinessSolutions() {
-  const sectionRef = useRef<HTMLElement>(null);
+type ScrollRevealTextProps = {
+  text: string;
+  className?: string;
+  delay?: number;
+  stagger?: number;
+  duration?: number;
+  start?: string;
+};
 
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const media = gsap.matchMedia();
-    const context = gsap.context(() => {
+function ScrollRevealText({
+  text,
+  className = "",
+  delay = 0,
+  stagger = 0.055,
+  duration = 0.8,
+  start = "top 85%",
+}: ScrollRevealTextProps) {
+  const container = useRef<HTMLSpanElement>(null);
+
+  useGSAP(
+    () => {
+      const words = gsap.utils.toArray<HTMLElement>(
+        ".reveal-word",
+        container.current ?? undefined,
+      );
+      const media = gsap.matchMedia();
+
       media.add("(prefers-reduced-motion: no-preference)", () => {
         gsap.fromTo(
-          "[data-business-reveal]",
-          { autoAlpha: 0, y: 24 },
+          words,
+          { yPercent: 110, opacity: 0 },
           {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.75,
-            stagger: 0.12,
-            ease: "power2.out",
+            yPercent: 0,
+            opacity: 1,
+            duration,
+            delay,
+            stagger,
+            ease: "power3.out",
             scrollTrigger: {
-              trigger: sectionRef.current,
-              start: "top 78%",
+              trigger: container.current,
+              start,
               once: true,
             },
           },
         );
       });
-    }, sectionRef);
 
-    return () => {
-      context.revert();
-      media.revert();
-    };
-  }, []);
+      return () => media.revert();
+    },
+    {
+      scope: container,
+      dependencies: [text, delay, stagger, duration, start],
+    },
+  );
 
   return (
+    <span ref={container} className={`inline ${className}`}>
+      {text.split(" ").map((word, index, words) => (
+        <span key={`${word}-${index}`}>
+          <span className="inline-block overflow-hidden align-bottom">
+            <span className="reveal-word inline-block will-change-transform">
+              {word}
+            </span>
+          </span>
+          {index < words.length - 1 ? " " : null}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+export function BusinessSolutions() {
+  return (
     <section
-      ref={sectionRef}
+      aria-labelledby="business-solutions-heading"
       className="relative isolate overflow-hidden bg-[#f8f8fa] py-16 sm:py-20 lg:min-h-[650px] lg:py-24"
     >
       <svg
         viewBox="0 0 581 675"
-        className="pointer-events-none absolute -right-16 -top-28 -z-10 h-[360px] w-[310px] rotate-12 opacity-100"
+        className="pointer-events-none absolute -right-1 -top-40 -z-10 h-[360px] w-[310px] rotate-12 opacity-100"
         aria-hidden="true"
       >
         <path
@@ -70,66 +110,46 @@ export function BusinessSolutions() {
       </svg>
 
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-12">
-        <div
-          data-business-reveal
-          className="mb-10 flex flex-col justify-between gap-7 sm:mb-12 sm:flex-row sm:items-start lg:mb-14"
-        >
-          <div className="max-w-[390px]">
-            <h2 className="text-[17px] font-medium leading-[1.6] text-[#34394c] sm:text-[19px]">
-              Flexible solutions for every business model. Grow your business
-              with a comprehensive set of payments and financial tools,
-              designed to work individually or together.
+        <div className="mb-10 flex flex-col justify-between gap-7 sm:mb-12 sm:flex-row sm:items-start lg:mb-14">
+          <div className="max-w-[640px]">
+            <h2
+              id="business-solutions-heading"
+              className="text-[17px] font-semibold leading-[1.2] text-[#34394c] sm:text-[26px]"
+            >
+              <ScrollRevealText
+                className="block"
+                text="Flexible solutions for every business model. Grow your business with a comprehensive set of payments and financial tools, designed to work individually or together."
+              />
             </h2>
           </div>
 
-          <Link
-            href="/appointment"
-            className="group inline-flex w-fit items-center gap-3 bg-[#dcdfff] px-6 py-3 text-[12px] font-medium text-[#071b50] transition-all duration-300 hover:bg-[#cbd0ff] hover:shadow-md"
-            style={{ clipPath: "polygon(14% 0, 100% 0, 86% 100%, 0 100%)" }}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              className="h-4 w-4 transition-transform group-hover:translate-x-1"
-              fill="none"
-              aria-hidden="true"
-            >
-              <path
-                d="M4 12h15m-6-6 6 6-6 6"
-                stroke="currentColor"
-                strokeWidth="1.7"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-            Appointment
-          </Link>
+          <AppointmentButton compact />
         </div>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-[1.65fr_1fr] lg:grid-cols-[1.8fr_1fr]">
-          <div
-            data-business-reveal
-            className="group relative min-h-[250px] overflow-hidden bg-[#182b35] sm:min-h-[310px] lg:min-h-[340px]"
-          >
+          <div className="group relative min-h-[250px] overflow-hidden bg-[#182b35] sm:min-h-[310px] lg:min-h-[340px]">
             <Image
               src={businessPhoto}
-              alt="Scientist examining a sample through a microscope"
+              alt="Laboratory scientist examining samples through a microscope"
               fill
               sizes="(max-width: 768px) 100vw, 65vw"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#050b13]/90 via-[#050b13]/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#050b13]/70 via-[#050b13]/10 to-transparent" />
             <div className="absolute bottom-0 left-0 max-w-[390px] p-6 sm:p-8">
               <p className="text-[14px] font-medium leading-[1.45] text-white sm:text-[16px]">
-                Run intricate cases, documentation, processing, and billing in
-                one connected system.
+                <ScrollRevealText
+                  className="block"
+                  text="Run intricate cases, documentation, processing, and billing in one connected system."
+                  stagger={0.04}
+                  duration={0.65}
+                  start="bottom 92%"
+                />
               </p>
             </div>
           </div>
 
-          <div
-            data-business-reveal
-            className="relative flex min-h-[250px] flex-col justify-between overflow-hidden bg-[#080d20] p-6 text-white sm:min-h-[310px] sm:p-8 lg:min-h-[340px]"
-          >
+          <div className="relative flex min-h-[250px] flex-col justify-between overflow-hidden bg-[#080d20] p-6 text-white sm:min-h-[310px] sm:p-8 lg:min-h-[340px]">
             <div className="flex justify-end">
               <svg
                 viewBox="0 0 40 40"
@@ -149,8 +169,11 @@ export function BusinessSolutions() {
                 “
               </span>
               <p className="max-w-[280px] text-[13px] leading-[1.7] text-white/90 sm:text-[14px]">
-                AllCare built us an exceptional product, with a great technology
-                business model.
+                <ScrollRevealText
+                  className="block"
+                  text="AllCare built us an exceptional product, with a great technology business model."
+                  stagger={0.045}
+                />
               </p>
               <div className="mt-5">
                 <p className="text-[12px] font-semibold text-white">
@@ -164,19 +187,6 @@ export function BusinessSolutions() {
           </div>
         </div>
 
-        <div
-          data-business-reveal
-          className="mt-12 flex flex-wrap items-center justify-center gap-x-10 gap-y-6 border-t border-[#e8e8ee] pt-8 sm:mt-16 sm:justify-end sm:gap-x-12"
-        >
-          {partners.map((partner) => (
-            <span
-              key={partner}
-              className="text-[13px] font-bold text-[#171923]/75 sm:text-[15px]"
-            >
-              {partner}
-            </span>
-          ))}
-        </div>
       </div>
     </section>
   );

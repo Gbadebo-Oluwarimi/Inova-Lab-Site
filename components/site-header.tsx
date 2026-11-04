@@ -49,7 +49,7 @@ export function SiteHeader() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="absolute inset-x-0 top-8 z-40 bg-[#06142d]/20 backdrop-blur-[2px]">
+    <header className="absolute inset-x-0 top-8 z-40  backdrop-blur-[2px]">
       <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between gap-5 px-5 sm:px-8 md:h-[86px] md:px-10 lg:px-12">
         <InovaLogo />
 
@@ -75,7 +75,7 @@ export function SiteHeader() {
           aria-expanded={menuOpen}
           aria-controls="mobile-navigation"
           onClick={() => setMenuOpen((open) => !open)}
-          className="flex h-11 w-11 shrink-0 items-center justify-center text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:hidden"
+          className="flex h-12 w-12 shrink-0 items-center justify-center border border-white/25 bg-white/5 text-white shadow-lg transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:hidden"
         >
           <span className="flex w-7 flex-col gap-[6px]">
             <span
@@ -101,15 +101,15 @@ export function SiteHeader() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="absolute left-0 top-full w-full border-t border-white/10  px-6 py-6 shadow-2xl lg:hidden"
+          className="absolute left-0 top-full w-full border-t border-white/10 bg-[#07152e]/95 px-5 py-5 shadow-2xl backdrop-blur-xl lg:hidden"
         >
-          <div className="flex flex-col gap-5">
+          <div className="mx-auto flex max-w-[1440px] flex-col gap-3">
             {navigation.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
                 onClick={() => setMenuOpen(false)}
-                className="py-1 text-[16px] font-medium text-white/90 transition-colors hover:text-white"
+                className="py-2 text-[16px] font-medium text-white/90 transition-colors hover:text-white"
               >
                 {item.name}
               </Link>

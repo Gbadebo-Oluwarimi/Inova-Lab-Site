@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { HomeHero } from "@/components/home-hero";
 import { BusinessSolutions } from "@/components/business-solutions";
+import { InsuranceLogoCarousel } from "@/components/insurance-logo-carousel";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createPageMetadata({
@@ -11,12 +11,6 @@ export const metadata = createPageMetadata({
   path: "/",
   keywords: ["medical laboratory", "diagnostic centre", "Nigeria"],
 });
-
-const insurancePartners = [
-  { name: "Bupa", src: "/images/partners/bupa.svg", width: 40 },
-  { name: "Hygeia HMO", src: "/images/partners/hygeia.png", width: 112 },
-  { name: "MetLife", src: "/images/partners/metlife.png", width: 126 },
-];
 
 export default function Home() {
   return (
@@ -40,38 +34,10 @@ export default function Home() {
 
       <main>
         <HomeHero />
+        <InsuranceLogoCarousel />
         <BusinessSolutions />
 
-        <section
-          aria-labelledby="insurance-heading"
-          className="bg-[#080d20] text-white"
-        >
-          <div className="mx-auto flex max-w-[1440px] flex-col gap-7 px-6 py-9 sm:px-10 md:flex-row md:items-center md:gap-10 md:px-12 md:py-10 lg:px-[9.5%]">
-            <h2
-              id="insurance-heading"
-              className="max-w-[210px] shrink-0 text-[19px] font-medium leading-[1.3] sm:text-[21px]"
-            >
-              Insured by the following companies
-            </h2>
-            <div className="hidden h-[72px] w-px shrink-0 bg-white/35 md:block" />
-            <div className="flex min-h-12 flex-wrap items-center gap-x-8 gap-y-5 sm:gap-x-10 md:gap-x-12">
-              {insurancePartners.map((partner) => (
-                <div
-                  key={partner.name}
-                  className="flex h-10 min-w-20 items-center justify-center"
-                >
-                  <Image
-                    src={partner.src}
-                    alt={partner.name}
-                    width={partner.width}
-                    height={40}
-                    className="max-h-8 w-auto object-contain brightness-0 invert opacity-85"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+       
       </main>
     </>
   );

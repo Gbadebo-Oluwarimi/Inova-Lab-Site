@@ -5,13 +5,13 @@ import gsap from "gsap";
 import { AppointmentButton } from "@/components/appointment-button";
 
 const heroSlides = [
-  {
-    heading: "Accurate Diagnosis. Better",
-    secondLine: "Health.",
-    emphasis: "A Healthier Tomorrow.",
-    description:
-      "Your trusted medical laboratory and diagnostic centre in Nigeria.",
-  },
+ {
+  heading: "Accurate Diagnosis. Better",
+  secondLine: "Health. Better Results.",
+  emphasis: "A Healthier Tomorrow Begins.",
+  description:
+    "Your trusted medical laboratory and diagnostic centre in Nigeria.",
+},
   {
     heading: "Trusted Diagnostics.",
     secondLine: "Confident Decisions.",
@@ -99,22 +99,48 @@ export function HomeHero() {
         })
         .catch(() => {
           transitioning = false;
-          outgoing.currentTime = 0;
-          void outgoing.play().catch(() => undefined);
+          if (document.visibilityState === "visible") {
+            outgoing.currentTime = 0;
+            void outgoing.play().catch(() => undefined);
+          }
         });
     };
 
-    const handlers = videos.map((_, index) => () => switchVideo(index));
+    const handlePlaybackProgress = (index: number) => {
+      const video = videos[index];
+      if (video.duration - video.currentTime <= 0.9) {
+        switchVideo(index);
+      }
+    };
+    const progressHandlers = videos.map((_, index) => () =>
+      handlePlaybackProgress(index),
+    );
+    const endHandlers = videos.map((_, index) => () => switchVideo(index));
+    const handleVisibilityChange = () => {
+      if (document.visibilityState !== "visible") return;
+
+      const video = videos[activeVideo];
+      if (video.duration - video.currentTime <= 0.9) {
+        switchVideo(activeVideo);
+      } else {
+        void video.play().catch(() => undefined);
+      }
+    };
+
     videos.forEach((video, index) => {
-      video.addEventListener("ended", handlers[index]);
+      video.addEventListener("timeupdate", progressHandlers[index]);
+      video.addEventListener("ended", endHandlers[index]);
     });
+    document.addEventListener("visibilitychange", handleVisibilityChange);
     void firstVideo.play().catch(() => undefined);
 
     return () => {
       videos.forEach((video, index) => {
-        video.removeEventListener("ended", handlers[index]);
+        video.removeEventListener("timeupdate", progressHandlers[index]);
+        video.removeEventListener("ended", endHandlers[index]);
         video.pause();
       });
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, []);
 
