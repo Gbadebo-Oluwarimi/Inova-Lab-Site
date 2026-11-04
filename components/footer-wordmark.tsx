@@ -75,7 +75,7 @@ export function FooterWordmark() {
           fontWeight="600"
           letterSpacing="-5"
         >
-          INOVA LABS DIAGNOSTIC
+          INOVA DIAGNOSTIC LAB
         </text>
       </svg>
     </div>

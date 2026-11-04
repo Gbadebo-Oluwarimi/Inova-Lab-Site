@@ -68,7 +68,7 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-8 flex flex-col gap-3 border-t border-[#dfe2e6] pt-5 text-[10px] text-[#777e87] sm:flex-row sm:items-center sm:justify-between">
-          <p>© 2026 Inova Labs Diagnostic. All rights reserved.</p>
+          <p>© 2026 Inova Diagnostic Lab. All rights reserved.</p>
           <p>Abuja, Nigeria</p>
         </div>
       </div>
