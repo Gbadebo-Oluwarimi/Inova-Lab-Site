@@ -52,21 +52,21 @@ const stories = [
 const statistics = [
   {
     number: "1,000+",
-    title: "Patients supported",
+    title: "Lives saved",
     description:
-      "We support individuals, families, and clinicians with laboratory testing and diagnostic services, offering clear guidance and dependable information to help them take the next step in care.",
+      "Timely diagnostic services help patients and care teams make informed decisions and take meaningful steps toward better health.",
   },
   {
-    number: "3",
-    title: "Core values",
+    number: "800+",
+    title: "Lives saved",
     description:
-      "Accuracy, compassion, and trust shape how we handle samples, communicate findings, and support each person throughout their diagnostic visit.",
+      "We are committed to compassionate patient care and dependable results that support people through important moments in their health journey.",
   },
   {
-    number: "1",
-    title: "Abuja centre",
+    number: "30+",
+    title: "Years of experience",
     description:
-      "Our Gwarinpa diagnostic centre brings laboratory and diagnostic services together in one accessible location at 1 Petrosyn Drive, Abuja.",
+      "For more than three decades, our team has supported patients and healthcare professionals with diagnostic services in Abuja.",
   },
 ];
 

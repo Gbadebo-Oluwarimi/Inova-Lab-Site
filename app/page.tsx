@@ -7,6 +7,7 @@ import InteractiveGallery from "@/components/interactive-gallery";
 import { FaqSection } from "@/components/faq-section";
 import { BlogSection } from "@/components/blog-section";
 import { LocationSection } from "@/components/location-section";
+import { TestimonialsSection } from "@/components/testimonials-section";
 import { Mail, MapPin } from "lucide-react";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
@@ -50,6 +51,7 @@ export default function Home() {
         <InteractiveGallery />
         <FaqSection />
         <BlogSection />
+        <TestimonialsSection />
         <LocationSection />
       </main>
     </>
