@@ -45,7 +45,7 @@ function HennerLogo() {
   return (
     <svg
       viewBox="0 0 180 52"
-      className="insurer-henner h-8 w-[110px]"
+      className="insurer-henner h-6 w-[84px] md:h-8 md:w-[110px]"
       role="img"
       aria-label="Henner"
     >
@@ -70,7 +70,7 @@ function InsurerLogoImage({
       alt={insurer.name}
       width={insurer.width}
       height={insurer.height}
-      className="insurer-logo h-auto max-h-8 w-auto max-w-[130px] object-contain"
+      className="insurer-logo h-auto max-h-6 w-auto max-w-[90px] object-contain md:max-h-8 md:max-w-[130px]"
     />
   );
 }
@@ -81,16 +81,16 @@ export function InsuranceLogoCarousel() {
       aria-labelledby="insurance-heading"
       className="bg-[#080d20] text-white"
     >
-      <div className="mx-auto flex max-w-[1440px] flex-col gap-7 px-6 py-9 sm:px-10 md:flex-row md:items-center md:gap-10 md:px-12 md:py-10 lg:px-[9.5%]">
+      <div className="mx-auto flex max-w-[1440px] flex-col gap-4 px-4 py-6 sm:gap-6 sm:px-8 sm:py-8 md:flex-row md:items-center md:gap-10 md:px-12 md:py-10 lg:px-[9.5%]">
         <h2
           id="insurance-heading"
-          className="max-w-[210px] shrink-0 text-[19px] font-medium leading-[1.3] sm:text-[21px]"
+          className="max-w-full shrink-0 text-center text-[15px] font-medium leading-[1.3] sm:text-[17px] md:max-w-[210px] md:text-left md:text-[19px]"
         >
           Insured by the following companies
         </h2>
         <div className="hidden h-[72px] w-px shrink-0 bg-white/35 md:block" />
         <div
-          className="insurer-marquee"
+          className="insurer-marquee w-full min-w-0 md:flex-1"
           role="region"
           aria-label="Insurance company logos"
         >

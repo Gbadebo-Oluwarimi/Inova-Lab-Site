@@ -562,12 +562,12 @@ export function SiteHeader() {
           aria-expanded={mobileMenuOpen}
           aria-controls="mobile-navigation"
           onClick={() => setMobileMenuOpen((open) => !open)}
-          className="flex h-12 w-12 shrink-0 items-center justify-center border border-white/25 bg-white/5 text-white shadow-lg transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:hidden"
+          className="flex h-11 w-11 shrink-0 items-center justify-center border border-white/25 bg-white/5 text-white shadow-lg transition-colors hover:bg-white/10 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white lg:hidden"
         >
-          <span className="flex w-7 flex-col gap-[6px]">
+          <span className="flex w-5 flex-col gap-[5px]">
             <span
               className={`h-[2px] w-full bg-current transition-transform ${
-                mobileMenuOpen ? "translate-y-2 rotate-45" : ""
+                mobileMenuOpen ? "translate-y-[7px] rotate-45" : ""
               }`}
             />
 
@@ -579,7 +579,7 @@ export function SiteHeader() {
 
             <span
               className={`h-[2px] w-full bg-current transition-transform ${
-                mobileMenuOpen ? "-translate-y-2 -rotate-45" : ""
+                mobileMenuOpen ? "-translate-y-[7px] -rotate-45" : ""
               }`}
             />
           </span>
@@ -627,10 +627,12 @@ export function SiteHeader() {
                       )
                     }
                     aria-expanded={isOpen}
-                    className="flex w-full items-center justify-between py-4 text-left text-[15px] font-medium text-white"
+                    className="relative flex w-full items-center justify-center py-3.5 text-center text-[14px] font-medium text-white"
                   >
                     {item.name}
-                    <Chevron open={isOpen} />
+                    <span className="absolute right-1">
+                      <Chevron open={isOpen} />
+                    </span>
                   </button>
 
                   {isOpen && (
@@ -642,7 +644,7 @@ export function SiteHeader() {
                           key={link.title}
                           href={link.href}
                           onClick={closeMenus}
-                          className="flex items-start gap-3"
+                          className="flex flex-col items-center gap-2 text-center"
                         >
                           <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-[#9ee7ff]">
                             {link.icon}
@@ -653,7 +655,7 @@ export function SiteHeader() {
                               {link.title}
                             </span>
 
-                            <span className="mt-1 block text-[11px] leading-relaxed text-white/60">
+                            <span className="mt-1 block max-w-[260px] text-[11px] leading-relaxed text-white/60">
                               {link.description}
                             </span>
                           </span>
@@ -663,11 +665,11 @@ export function SiteHeader() {
                       {/* MOBILE LINK GROUPS */}
                       {data.groups.map((group) => (
                         <div key={group.heading}>
-                          <p className="mb-3 text-[10px] font-bold tracking-widest text-[#aabbd0]">
+                          <p className="mb-3 text-center text-[9px] font-bold tracking-widest text-[#aabbd0]">
                             {group.heading}
                           </p>
 
-                          <div className="grid grid-cols-2 gap-3">
+                          <div className="grid grid-cols-2 gap-3 text-center">
                             {group.links.map((link) => (
                               <Link
                                 key={link.title}
@@ -688,7 +690,7 @@ export function SiteHeader() {
             })}
 
             {/* MOBILE APPOINTMENT BUTTON */}
-            <div className="pt-5">
+            <div className="flex justify-center pt-5">
               <AppointmentButton compact />
             </div>
           </div>

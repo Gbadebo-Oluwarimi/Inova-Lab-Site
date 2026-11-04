@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <>
       <div className="relative z-50 bg-[#f7f8fc] text-[#122247]">
-        <div className="mx-auto flex h-8 max-w-[1440px] items-center justify-end gap-3 px-4 text-[10px] font-medium sm:px-6 sm:text-[11px] md:gap-6 md:px-10">
+        <div className="mx-auto flex h-8 max-w-[1440px] items-center justify-center gap-3 px-4 text-[10px] font-medium sm:justify-end sm:px-6 sm:text-[11px] md:gap-6 md:px-10">
           <a
             href="mailto:info@inovamedlab.com"
             className="truncate transition-colors hover:text-[#2864d7]"

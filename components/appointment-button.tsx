@@ -12,7 +12,9 @@ export function AppointmentButton({
       href="/appointment"
       aria-label="Book an appointment"
       className={`group block w-full focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white ${
-        compact ? "max-w-[281px] lg:w-[180px]" : "max-w-[281px]"
+        compact
+          ? "max-w-[164px] sm:max-w-[180px] lg:w-[180px]"
+          : "max-w-[281px]"
       }`}
     >
       <svg
