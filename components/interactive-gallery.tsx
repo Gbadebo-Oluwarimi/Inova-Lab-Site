@@ -135,8 +135,8 @@ export default function InteractiveGallery() {
                 aria-label={`Explore ${item.title}`}
                 className="group relative min-w-0 overflow-hidden rounded-xl bg-[#dce2e8] outline-none focus-visible:ring-2 focus-visible:ring-[#536ba2]"
                 style={{
-                  flex: isActive ? "4 1 0%" : "0.8 1 0%",
-                  transition: "flex 650ms cubic-bezier(0.22, 1, 0.36, 1)",
+                  flex: isActive ? "6 1 0%" : "0.55 1 0%",
+                  transition: "flex 700ms cubic-bezier(0.22, 1, 0.36, 1)",
                 }}
               >
                 <Image

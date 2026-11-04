@@ -5,6 +5,8 @@ import { InsuranceLogoCarousel } from "@/components/insurance-logo-carousel";
 import ImpactSection from "@/components/impact-section";
 import InteractiveGallery from "@/components/interactive-gallery";
 import { FaqSection } from "@/components/faq-section";
+import { BlogSection } from "@/components/blog-section";
+import { LocationSection } from "@/components/location-section";
 import { Mail, MapPin } from "lucide-react";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
@@ -47,6 +49,8 @@ export default function Home() {
         <ImpactSection />
         <InteractiveGallery />
         <FaqSection />
+        <BlogSection />
+        <LocationSection />
       </main>
     </>
   );
