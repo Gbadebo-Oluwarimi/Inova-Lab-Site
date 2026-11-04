@@ -1,95 +1,56 @@
 "use client";
 
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { useGSAP } from "@gsap/react";
 import businessPhoto from "../inova-comps/doctor girk.jpg";
 import { AppointmentButton } from "./appointment-button";
 
-gsap.registerPlugin(ScrollTrigger, useGSAP);
-
-type ScrollRevealTextProps = {
-  text: string;
-  className?: string;
-  delay?: number;
-  stagger?: number;
-  duration?: number;
-  start?: string;
-};
-
-function ScrollRevealText({
-  text,
-  className = "",
-  delay = 0,
-  stagger = 0.055,
-  duration = 0.8,
-  start = "top 85%",
-}: ScrollRevealTextProps) {
-  const container = useRef<HTMLSpanElement>(null);
-
-  useGSAP(
-    () => {
-      const words = gsap.utils.toArray<HTMLElement>(
-        ".reveal-word",
-        container.current ?? undefined,
-      );
-      const media = gsap.matchMedia();
-
-      media.add("(prefers-reduced-motion: no-preference)", () => {
-        gsap.fromTo(
-          words,
-          { yPercent: 110, opacity: 0 },
-          {
-            yPercent: 0,
-            opacity: 1,
-            duration,
-            delay,
-            stagger,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: container.current,
-              start,
-              once: true,
-            },
-          },
-        );
-      });
-
-      return () => media.revert();
-    },
-    {
-      scope: container,
-      dependencies: [text, delay, stagger, duration, start],
-    },
-  );
-
-  return (
-    <span ref={container} className={`inline ${className}`}>
-      {text.split(" ").map((word, index, words) => (
-        <span key={`${word}-${index}`}>
-          <span className="inline-block overflow-hidden align-bottom">
-            <span className="reveal-word inline-block will-change-transform">
-              {word}
-            </span>
-          </span>
-          {index < words.length - 1 ? " " : null}
-        </span>
-      ))}
-    </span>
-  );
-}
-
 export function BusinessSolutions() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+    const media = gsap.matchMedia();
+    const context = gsap.context(() => {
+      media.add("(prefers-reduced-motion: no-preference)", () => {
+        gsap.utils.toArray<HTMLElement>("[data-text-reveal]").forEach((text) => {
+          gsap.fromTo(
+            text,
+            { autoAlpha: 0.18, filter: "blur(6px)", y: 16 },
+            {
+              autoAlpha: 1,
+              filter: "blur(0px)",
+              y: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: text,
+                start: "top 92%",
+                end: "top 62%",
+                scrub: 0.65,
+              },
+            },
+          );
+        });
+      });
+    }, sectionRef);
+
+    return () => {
+      context.revert();
+      media.revert();
+    };
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       aria-labelledby="business-solutions-heading"
       className="relative isolate overflow-hidden bg-[#f8f8fa] py-16 sm:py-20 lg:min-h-[650px] lg:py-24"
     >
       <svg
         viewBox="0 0 581 675"
-        className="pointer-events-none absolute -right-1 -top-40 -z-10 h-[360px] w-[310px] rotate-12 opacity-100"
+        className="pointer-events-none absolute -right-24 -top-28 -z-10 h-[360px] w-[310px] rotate-12 opacity-100"
         aria-hidden="true"
       >
         <path
@@ -111,15 +72,14 @@ export function BusinessSolutions() {
 
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-12">
         <div className="mb-10 flex flex-col justify-between gap-7 sm:mb-12 sm:flex-row sm:items-start lg:mb-14">
-          <div className="max-w-[640px]">
+          <div data-text-reveal className="max-w-[640px]">
             <h2
               id="business-solutions-heading"
               className="text-[17px] font-semibold leading-[1.2] text-[#34394c] sm:text-[26px]"
             >
-              <ScrollRevealText
-                className="block"
-                text="Flexible solutions for every business model. Grow your business with a comprehensive set of payments and financial tools, designed to work individually or together."
-              />
+              Flexible solutions for every business model. Grow your business
+              with a comprehensive set of payments and financial tools,
+              designed to work individually or together.
             </h2>
           </div>
 
@@ -137,14 +97,9 @@ export function BusinessSolutions() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#050b13]/70 via-[#050b13]/10 to-transparent" />
             <div className="absolute bottom-0 left-0 max-w-[390px] p-6 sm:p-8">
-              <p className="text-[14px] font-medium leading-[1.45] text-white sm:text-[16px]">
-                <ScrollRevealText
-                  className="block"
-                  text="Run intricate cases, documentation, processing, and billing in one connected system."
-                  stagger={0.04}
-                  duration={0.65}
-                  start="bottom 92%"
-                />
+              <p data-text-reveal className="text-[14px] font-medium leading-[1.45] text-white sm:text-[16px]">
+                Run intricate cases, documentation, processing, and billing in
+                one connected system.
               </p>
             </div>
           </div>
@@ -164,16 +119,13 @@ export function BusinessSolutions() {
               </svg>
             </div>
 
-            <div className="mt-4">
+            <div data-text-reveal className="mt-4">
               <span className="mb-3 block text-[32px] font-semibold leading-none">
                 “
               </span>
               <p className="max-w-[280px] text-[13px] leading-[1.7] text-white/90 sm:text-[14px]">
-                <ScrollRevealText
-                  className="block"
-                  text="AllCare built us an exceptional product, with a great technology business model."
-                  stagger={0.045}
-                />
+                AllCare built us an exceptional product, with a great technology
+                business model.
               </p>
               <div className="mt-5">
                 <p className="text-[12px] font-semibold text-white">
