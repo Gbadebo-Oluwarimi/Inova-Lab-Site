@@ -20,18 +20,18 @@ export default function Home() {
   return (
     <>
       <div className="relative z-[60] border-b border-white/10 bg-[#07152e] text-white">
-        <div className="mx-auto grid h-10 max-w-[1440px] grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] items-center gap-2 px-3 text-[9px] sm:px-8 sm:text-[11px] lg:px-12">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-2 items-center gap-x-2 gap-y-1 px-3 py-2 text-[9px] sm:h-10 sm:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] sm:gap-2 sm:px-8 sm:py-0 sm:text-[11px] lg:px-12">
           <a
             href="mailto:info@inovamedlab.com"
-            className="flex min-w-0 items-center gap-1.5 whitespace-nowrap transition-colors hover:text-[#daddff] sm:gap-2.5"
+            className="col-start-1 row-start-1 flex min-w-0 items-center gap-1.5 whitespace-nowrap transition-colors hover:text-[#daddff] sm:gap-2.5"
           >
             <Mail className="h-3 w-3 shrink-0 text-[#cbd3ff] sm:h-3.5 sm:w-3.5" aria-hidden="true" />
             info@inovamedlab.com
           </a>
-          <p className="whitespace-nowrap text-center text-[8px] font-semibold uppercase tracking-[0.04em] text-[#dce4ff] sm:text-[10px] sm:tracking-[0.08em]">
+          <p className="col-start-2 row-start-1 whitespace-nowrap text-right text-[8px] font-semibold uppercase tracking-[0.03em] text-[#dce4ff] sm:col-start-2 sm:text-center sm:text-[10px] sm:tracking-[0.08em]">
             Nigeria&apos;s No. 1 Diagnostic Lab
           </p>
-          <span className="hidden items-center justify-self-end gap-2 text-white/75 sm:flex">
+          <span className="col-span-2 row-start-2 flex items-center justify-center gap-1.5 whitespace-nowrap text-[8px] text-white/75 sm:col-span-1 sm:col-start-3 sm:row-start-1 sm:justify-self-end sm:gap-2 sm:text-[11px]">
             <MapPin className="h-3.5 w-3.5 shrink-0 text-[#cbd3ff]" aria-hidden="true" />
             1 Petrosyn Drive, Gwarinpa, Abuja, Nigeria
           </span>

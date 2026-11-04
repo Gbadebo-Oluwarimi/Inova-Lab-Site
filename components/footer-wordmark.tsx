@@ -13,7 +13,7 @@ export function FooterWordmark() {
     gsap.registerPlugin(ScrollTrigger);
     const media = gsap.matchMedia();
     const context = gsap.context(() => {
-      media.add("(prefers-reduced-motion: no-preference)", () => {
+      media.add("(min-width: 640px) and (prefers-reduced-motion: no-preference)", () => {
         const targets = [markRef.current, wordmarkRef.current].filter(
           (target): target is SVGSVGElement => target !== null,
         );
