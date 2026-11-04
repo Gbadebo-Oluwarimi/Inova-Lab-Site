@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { Plus } from "lucide-react";
 import businessPhoto from "../inova-comps/doctor girk.jpg";
 import teamPhoto from "../inova-comps/inova huge img.jpg";
 import consultationPhoto from "../inova-comps/family-consultation.png";
@@ -135,23 +136,26 @@ export function BusinessSolutions() {
       </svg>
 
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8 lg:px-12">
-        <div className="mb-10 flex flex-col justify-between gap-7 sm:mb-12 sm:flex-row sm:items-start lg:mb-14">
-          <div data-text-reveal className="max-w-[640px]">
+        <div className="mb-10 flex flex-col justify-between gap-7 sm:mb-12 sm:flex-row sm:items-end lg:mb-14">
+          <div className="max-w-[680px]">
+            <p data-text-reveal className="mb-3 text-[10px] font-semibold uppercase tracking-[2px] text-[#536ba2]">OUR APPROACH</p>
             <h2
               id="business-solutions-heading"
-              className="text-[20px] font-semibold leading-[1.25] tracking-[-0.025em] text-[#34394c] sm:text-[28px]"
+              data-text-reveal
+              className="text-[28px] font-semibold leading-[1.08] tracking-[-0.045em] text-[#202637] sm:text-[38px]"
             >
-              From routine testing to specialist investigations, our team
-              combines trusted <span className="text-[#888895]">laboratory practice with clear communication so
-              patients and clinicians can make informed decisions with confidence.</span>
+              Diagnostic care that helps you make confident decisions.
             </h2>
+            <p data-text-reveal className="mt-4 max-w-[600px] text-[13px] leading-[1.75] text-[#626a78] sm:text-[14px]">
+              From routine testing to specialist investigations, our experienced team combines trusted laboratory practice with clear communication for patients and clinicians.
+            </p>
           </div>
 
           <AppointmentButton compact />
         </div>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-[1.65fr_1fr] lg:grid-cols-[1.8fr_1fr]">
-          <div ref={slideRef} className="group relative min-h-[330px] overflow-hidden bg-[#182b35] sm:min-h-[390px] lg:min-h-[440px]">
+          <div ref={slideRef} className="group relative min-h-[330px] overflow-hidden rounded-2xl bg-[#182b35] shadow-[0_18px_48px_rgba(17,24,39,0.16)] sm:min-h-[390px] lg:min-h-[440px]">
             <Image
               key={slide.alt}
               src={slide.image}
@@ -186,19 +190,9 @@ export function BusinessSolutions() {
             </div>
           </div>
 
-          <div className="relative flex min-h-[250px] flex-col justify-between overflow-hidden bg-[#080d20] p-6 text-white sm:min-h-[310px] sm:p-8 lg:min-h-[340px]">
+          <div className="relative flex min-h-[250px] flex-col justify-between overflow-hidden rounded-2xl bg-[#080d20] p-6 text-white shadow-[0_18px_48px_rgba(17,24,39,0.12)] sm:min-h-[310px] sm:p-8 lg:min-h-[340px]">
             <div className="flex justify-end">
-              <svg
-                viewBox="0 0 40 40"
-                className="h-8 w-8"
-                fill="none"
-                aria-hidden="true"
-              >
-                <path
-                  d="M16 3C19 1 23 3 23 7V15H31C35 15 37 18 35 22C34 24 32 25 29 25H23V32C23 36 20 38 16 37C13 36 12 34 12 31V25H6C2 25 0 22 2 18C3 16 5 15 8 15H12V8C12 6 13 4 16 3Z"
-                  fill="#DADDFF"
-                />
-              </svg>
+              <Plus className="h-8 w-8 text-[#daddff]" strokeWidth={1.5} aria-hidden="true" />
             </div>
 
             <div data-text-reveal className="mt-4">

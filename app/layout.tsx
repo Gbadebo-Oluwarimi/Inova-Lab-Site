@@ -8,6 +8,7 @@ import {
 import { createDefaultMetadata } from "@/lib/seo/metadata";
 import { SmoothScroll } from "@/components/smooth-scroll";
 import { AppointmentExperience } from "@/components/appointment-experience";
+import { SiteFooter } from "@/components/site-footer";
 import "./globals.css";
 
 const gellix = localFont({
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <JsonLd data={generateWebsiteJsonLd()} />
         <SmoothScroll>
           {children}
+          <SiteFooter />
           <AppointmentExperience />
         </SmoothScroll>
       </body>

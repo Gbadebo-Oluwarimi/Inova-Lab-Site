@@ -1,6 +1,8 @@
 "use client";
 
 import Image from "next/image";
+import { ArrowLeft, ArrowRight } from "lucide-react";
+import { BackgroundMotif } from "@/components/background-motif";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import advancedTestingImage from "../inova-comps/ultrasound.png";
@@ -49,44 +51,28 @@ const stories = [
 
 const statistics = [
   {
-    number: "XX+",
-    title: "Laboratory Investigations",
+    number: "1,000+",
+    title: "Patients supported",
     description:
-      "A growing range of diagnostic investigations across multiple laboratory departments.",
+      "People and families supported with diagnostic services and clear guidance.",
   },
   {
-    number: "XX%",
-    title: "Commitment to Quality",
+    number: "3",
+    title: "Core values",
     description:
-      "Our commitment to accurate testing, professional standards and dependable results.",
+      "Accuracy, compassion and trust guide the way we care for every patient.",
   },
   {
-    number: "XX+",
-    title: "Patients Served",
+    number: "1",
+    title: "Abuja centre",
     description:
-      "Supporting individuals, families and healthcare providers with diagnostic services.",
+      "Visit our diagnostic centre at 1 Petrosyn Drive in Gwarinpa.",
   },
 ];
 
 function ArrowIcon({ direction }: { direction: "left" | "right" }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      className="h-5 w-5"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.7"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {direction === "left" ? (
-        <path d="M19 12H5m7 7-7-7 7-7" />
-      ) : (
-        <path d="M5 12h14m-7-7 7 7-7 7" />
-      )}
-    </svg>
-  );
+  const Icon = direction === "left" ? ArrowLeft : ArrowRight;
+  return <Icon className="h-5 w-5" strokeWidth={1.7} aria-hidden="true" />;
 }
 
 export default function ImpactSection() {
@@ -148,15 +134,19 @@ export default function ImpactSection() {
   return (
     <section
       aria-labelledby="impact-heading"
-      className="relative overflow-hidden bg-[#050711] py-20 text-white sm:py-24 lg:py-28"
+      className="relative isolate overflow-hidden bg-[#050711] py-20 text-white sm:py-24 lg:py-28"
     >
-      <h2 id="impact-heading" className="sr-only">
-        Inova impact
-      </h2>
-      <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
-        <div className="mb-12 flex flex-col justify-between gap-8 md:mb-14 md:flex-row md:items-start">
-          <div className="flex max-w-[440px] flex-col justify-between gap-6 md:ml-auto md:items-end md:text-right">
-            <p className="text-[14px] leading-[1.8] text-white/65 md:text-right">
+      <BackgroundMotif color="#8795eb" className="-left-32 top-20 h-[380px] w-[330px] -rotate-12 opacity-[0.09] sm:h-[500px] sm:w-[430px]" />
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+        <div className="mb-12 grid gap-7 md:mb-14 md:grid-cols-[1fr_0.8fr] md:items-end md:gap-12">
+          <div className="max-w-[580px]">
+            <p className="mb-3 text-[10px] font-semibold uppercase tracking-[2px] text-[#b6c9ff]">INOVA IN FOCUS</p>
+            <h2 id="impact-heading" className="text-[32px] font-semibold leading-[1.05] tracking-[-0.045em] text-white sm:text-[42px] lg:text-[52px]">
+              Better insight.<br className="hidden sm:block" /> Better care.
+            </h2>
+          </div>
+          <div className="flex max-w-[460px] flex-col justify-between gap-6 md:ml-auto md:items-end md:text-right">
+            <p className="text-[13px] leading-[1.8] text-white/65 md:text-right sm:text-[14px]">
               Discover how Inova is committed to advancing healthcare through
               reliable diagnostic services, modern laboratory technology and
               professional medical expertise.
@@ -245,16 +235,16 @@ export default function ImpactSection() {
           </div>
         </div>
 
-        <div className="mt-16 grid grid-cols-1 gap-10 border-t border-white/10 pt-12 sm:grid-cols-3 sm:gap-8 lg:mt-20 lg:pt-16">
+        <div className="mt-16 grid grid-cols-1 gap-3 sm:grid-cols-3 sm:gap-4 lg:mt-20">
           {statistics.map((stat) => (
-            <div key={stat.title} className="max-w-[310px]">
-              <p className="text-[34px] font-semibold text-[#b6c9ff] sm:text-[38px]">
+            <div key={stat.title} className="rounded-2xl border border-white/[0.08] bg-white/[0.035] p-5 sm:p-6 lg:p-7">
+              <p className="text-[36px] font-semibold tracking-[-0.04em] text-[#cbd3ff] sm:text-[42px]">
                 {stat.number}
               </p>
-              <h3 className="mt-3 text-[14px] font-semibold text-white">
+              <h3 className="mt-2 text-[13px] font-semibold text-white sm:text-[14px]">
                 {stat.title}
               </h3>
-              <p className="mt-3 text-[11px] leading-[1.8] text-white/55">
+              <p className="mt-2 max-w-[310px] text-[11px] leading-[1.75] text-white/55">
                 {stat.description}
               </p>
             </div>

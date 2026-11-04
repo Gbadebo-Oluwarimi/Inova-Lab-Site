@@ -90,7 +90,7 @@ export function createDefaultMetadata(): Metadata {
       ...(image ? { images: [image] } : {}),
     },
     icons: {
-      icon: siteConfig.faviconPath,
+      icon: siteConfig.faviconPath ?? "/icon.svg",
       apple: siteConfig.appleIconPath,
     },
   };

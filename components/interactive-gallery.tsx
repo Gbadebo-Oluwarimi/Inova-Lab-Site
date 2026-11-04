@@ -8,6 +8,7 @@ import specialistImage from "../inova-comps/cardiologist.jpg";
 import patientCareImage from "../inova-comps/family-consultation.png";
 import laboratoryImage from "../inova-comps/doctor girk.jpg";
 import { AppointmentButton } from "@/components/appointment-button";
+import { BackgroundMotif } from "@/components/background-motif";
 
 const galleryItems = [
   {
@@ -99,9 +100,10 @@ export default function InteractiveGallery() {
   return (
     <section
       aria-labelledby="gallery-heading"
-      className="overflow-hidden bg-[#f6f8fb] py-16 sm:py-20 lg:py-24"
+      className="relative isolate overflow-hidden bg-[#f6f8fb] py-16 sm:py-20 lg:py-24"
     >
-      <div className="mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
+      <BackgroundMotif color="#daddff" className="-right-24 top-0 h-[320px] w-[275px] rotate-12 opacity-20 sm:h-[440px] sm:w-[380px]" />
+      <div className="relative z-10 mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <div className="mb-10 max-w-[650px] sm:mb-12">
           <span className="mb-3 block text-[10px] font-semibold uppercase tracking-[2px] text-[#50658b]">
             THE INOVA EXPERIENCE

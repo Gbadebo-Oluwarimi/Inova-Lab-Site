@@ -180,7 +180,7 @@ export function HomeHero() {
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 pt-36 sm:px-10 sm:pt-40 md:px-12 md:pb-20 md:pt-44 lg:px-[7%]">
         <div className="mx-auto max-w-[900px] text-center md:mx-0 md:text-left">
           <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#cbd5ff] sm:text-xs">
-            Trusted diagnostics in Nigeria
+            Trusted diagnostics Center in Nigeria
           </p>
           <div
             ref={copyRef}

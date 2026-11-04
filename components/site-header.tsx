@@ -2,7 +2,31 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
+import {
+  ArrowDownUp,
+  ArrowLeft,
+  ArrowRight,
+  ArrowUpRight,
+  Atom,
+  BookOpen,
+  Check,
+  Circle,
+  CircleHelp,
+  CircleDot,
+  ChevronDown,
+  FlaskConical,
+  Heart,
+  Mail,
+  MapPin,
+  Pencil,
+  Plus,
+  Search,
+  Sparkles,
+  X,
+} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { AppointmentButton } from "@/components/appointment-button";
 
 // ==========================================
@@ -346,6 +370,25 @@ const menuData: Record<string, MenuData> = {
   },
 };
 
+const menuIconMap: Record<string, LucideIcon> = {
+  "✚": Plus,
+  "✦": Sparkles,
+  "✓": Check,
+  "⌕": Search,
+  "♡": Heart,
+  "◉": CircleDot,
+  "⌬": Atom,
+  "⚗": FlaskConical,
+  "◎": Circle,
+  "?": CircleHelp,
+  "✎": Pencil,
+  "▤": BookOpen,
+  "↗": ArrowUpRight,
+  "✉": Mail,
+  "⌖": MapPin,
+  "→": ArrowRight,
+};
+
 // ==========================================
 // INOVA LOGO
 // ==========================================
@@ -357,35 +400,15 @@ function InovaLogo() {
       className="flex shrink-0 items-center gap-2"
       aria-label="Inova home"
     >
-      <svg
-        viewBox="0 0 52 52"
-        className="h-9 w-9 sm:h-10 sm:w-10"
-        fill="none"
-        aria-hidden="true"
-      >
-        <path
-          d="M23 5C25 2 30 1 33 4C35 6 35 9 34 12L31 21H43C47 21 49 24 48 28C47 31 45 33 41 33H27L23 46C22 50 18 52 14 50C11 49 10 46 11 43L14 33H6C2 33 0 30 1 26C2 23 4 21 8 21H17L20 9C20 7 21 6 23 5Z"
-          fill="url(#inova-mark-gradient)"
-        />
-
-        <defs>
-          <linearGradient
-            id="inova-mark-gradient"
-            x1="5"
-            y1="4"
-            x2="43"
-            y2="48"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor="#78d7ff" />
-            <stop offset="1" stopColor="#dce2ff" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      <span className="text-[27px] font-semibold leading-none text-white sm:text-[30px]">
-        inova
-      </span>
+      <Image
+        src="/inova-logo.svg"
+        alt="Inova"
+        width={151}
+        height={51}
+        priority
+        unoptimized
+        className="h-auto w-[105px] sm:w-[118px]"
+      />
     </Link>
   );
 }
@@ -394,11 +417,12 @@ function InovaLogo() {
 // DROPDOWN ICON
 // ==========================================
 
-function DropdownIcon({ icon }: { icon: string }) {
+function DropdownIcon({ icon, compact = false }: { icon: string; compact?: boolean }) {
+  const Icon = menuIconMap[icon] ?? ArrowDownUp;
   return (
-    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#071b35] text-[20px] font-semibold text-[#69dfff] transition duration-300 group-hover:scale-105 group-hover:bg-[#123d69]">
-      {icon}
-    </div>
+    <span className={`flex shrink-0 items-center justify-center rounded-full transition duration-300 group-hover:scale-105 ${compact ? "h-9 w-9 bg-[#eaf3fb] text-[#147aa8]" : "h-11 w-11 bg-[#071b35] text-[#69dfff] group-hover:bg-[#123d69]"}`}>
+      <Icon className="h-5 w-5" strokeWidth={1.7} aria-hidden="true" />
+    </span>
   );
 }
 
@@ -408,22 +432,7 @@ function DropdownIcon({ icon }: { icon: string }) {
 
 function Chevron({ open = false }: { open?: boolean }) {
   return (
-    <svg
-      viewBox="0 0 12 12"
-      className={`h-3 w-3 transition-transform duration-200 ${
-        open ? "rotate-180" : ""
-      }`}
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="m2 4 4 4 4-4"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <ChevronDown className={`h-3.5 w-3.5 transition-transform duration-200 ${open ? "rotate-180" : ""}`} aria-hidden="true" />
   );
 }
 
@@ -468,7 +477,7 @@ function MegaDropdown({
                 {item.description}
               </p>
             </div>
-            <span aria-hidden="true" className="mt-1 text-lg leading-none text-[#92a5b5] transition-transform group-hover:translate-x-1 group-hover:text-[#0879aa]">→</span>
+            <ArrowUpRight className="mt-1 h-4 w-4 text-[#92a5b5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#0879aa]" aria-hidden="true" />
           </Link>
         ))}
       </div>
@@ -490,7 +499,7 @@ function MegaDropdown({
                   className="group flex min-h-10 items-center justify-between gap-3 rounded-lg px-3 text-[13px] font-semibold text-[#102b46] transition-colors hover:bg-white hover:text-[#0879aa] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-[#168bc0]"
                 >
                   {link.title}
-                  <span aria-hidden="true" className="text-[#92a5b5] transition-transform group-hover:translate-x-1 group-hover:text-[#0879aa]">→</span>
+                  <ArrowUpRight className="h-4 w-4 text-[#92a5b5] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#0879aa]" aria-hidden="true" />
                 </Link>
               ))}
             </div>
@@ -524,7 +533,7 @@ export function SiteHeader() {
 
   return (
     <header
-      className="absolute inset-x-0 top-8 z-50"
+      className="absolute inset-x-0 top-10 z-50"
       onMouseLeave={() => setActiveMenu(null)}
     >
       {/* HEADER CONTENT */}
@@ -623,13 +632,15 @@ export function SiteHeader() {
           className="fixed inset-0 z-[60] flex h-[100dvh] w-full flex-col overflow-y-auto bg-[#f7f8fc] px-6 pb-8 pt-5 text-[#10234b] lg:hidden"
         >
           <div className="mx-auto flex w-full max-w-[420px] items-center justify-between">
-            <div className="flex items-center gap-2 text-[#17356d]">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#dce5f6]">
-                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
-                  <path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7V3Z" fill="currentColor" />
-                </svg>
-              </span>
-              <span className="text-[19px] font-semibold leading-none">inova</span>
+            <div className="rounded-lg bg-[#07152e] px-2 py-1.5">
+              <Image
+                src="/inova-logo.svg"
+                alt="Inova"
+                width={151}
+                height={51}
+                unoptimized
+                className="h-auto w-[108px]"
+              />
             </div>
             <button
               type="button"
@@ -637,9 +648,7 @@ export function SiteHeader() {
               aria-label="Close navigation"
               className="flex h-10 w-10 items-center justify-center rounded-full text-[#344054] transition-colors hover:bg-[#e9edf5] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#344054]"
             >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
-                <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
-              </svg>
+              <X className="h-5 w-5" strokeWidth={1.7} aria-hidden="true" />
             </button>
           </div>
 
@@ -651,9 +660,7 @@ export function SiteHeader() {
                   onClick={() => setMobileActiveMenu(null)}
                   className="flex min-h-11 items-center gap-2 self-start rounded-lg px-3 text-[13px] font-semibold text-[#31518e] transition-colors hover:bg-[#e9f0fa]"
                 >
-                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
-                    <path d="M19 12H5m7 7-7-7 7-7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
+                  <ArrowLeft className="h-4 w-4" strokeWidth={1.7} aria-hidden="true" />
                   All sections
                 </button>
 
@@ -671,12 +678,12 @@ export function SiteHeader() {
                           onClick={closeMenus}
                           className="group flex min-h-[68px] items-center gap-3 rounded-xl border border-[#dfe7f0] bg-white px-4 py-3 shadow-[0_2px_8px_rgba(16,35,75,0.04)] transition-colors hover:border-[#b8d7e8] hover:bg-[#f7fbff] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-[#31518e]"
                         >
-                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eaf3fb] text-[17px] font-semibold text-[#147aa8]" aria-hidden="true">{link.icon}</span>
+                          <DropdownIcon icon={link.icon} compact />
                           <span className="min-w-0 flex-1">
                             <span className="block text-[14px] font-semibold text-[#1d2939]">{link.title}</span>
                             <span className="mt-1 block text-[12px] leading-relaxed text-[#667085]">{link.description}</span>
                           </span>
-                          <span aria-hidden="true" className="text-lg text-[#8b9bad] transition-transform group-hover:translate-x-1">→</span>
+                          <ArrowUpRight className="h-4 w-4 text-[#8b9bad] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                         </Link>
                       ))}
                     </div>
@@ -695,7 +702,7 @@ export function SiteHeader() {
                               className="group flex min-h-11 items-center justify-between rounded-lg px-3 text-[14px] font-medium text-[#344054] transition-colors hover:bg-white hover:text-[#31518e] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-[#31518e]"
                             >
                               {link.title}
-                              <span aria-hidden="true" className="text-[#8b9bad] transition-transform group-hover:translate-x-1">→</span>
+                              <ArrowUpRight className="h-4 w-4 text-[#8b9bad] transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
                             </Link>
                           ))}
                         </div>
