@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { HomeHero } from "@/components/home-hero";
+import { BusinessSolutions } from "@/components/business-solutions";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createPageMetadata({
@@ -39,6 +40,7 @@ export default function Home() {
 
       <main>
         <HomeHero />
+        <BusinessSolutions />
 
         <section
           aria-labelledby="insurance-heading"

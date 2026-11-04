@@ -1,13 +1,11 @@
 "use client";
 
-import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { AppointmentButton } from "@/components/appointment-button";
-import cardiologistImage from "../inova-comps/cardiologist.jpg";
 
 const heroSlides = [
   {
-    image: "/images/medical-team.avif",
     heading: "Accurate Diagnosis. Better",
     secondLine: "Health.",
     emphasis: "A Healthier Tomorrow.",
@@ -15,7 +13,6 @@ const heroSlides = [
       "Your trusted medical laboratory and diagnostic centre in Nigeria.",
   },
   {
-    image: cardiologistImage,
     heading: "Trusted Diagnostics.",
     secondLine: "Confident Decisions.",
     emphasis: "Care You Can Count On.",
@@ -26,7 +23,8 @@ const heroSlides = [
 
 export function HomeHero() {
   const [activeSlide, setActiveSlide] = useState(0);
-  const [isVisible, setIsVisible] = useState(true);
+  const copyRef = useRef<HTMLDivElement>(null);
+  const videoRefs = useRef<Array<HTMLVideoElement | null>>([null, null]);
   const slide = heroSlides[activeSlide];
 
   useEffect(() => {
@@ -34,39 +32,122 @@ export function HomeHero() {
       return;
     }
 
-    let revealTimeout: number | undefined;
-    const interval = window.setInterval(() => {
-      setIsVisible(false);
-      revealTimeout = window.setTimeout(() => {
-        setActiveSlide((current) => (current + 1) % heroSlides.length);
-        setIsVisible(true);
-      }, 450);
-    }, 6500);
+    const context = gsap.context(() => {
+      const timeline = gsap.timeline({ repeat: -1 });
+      timeline
+        .to(copyRef.current, {
+          autoAlpha: 0,
+          y: 8,
+          duration: 0.45,
+          ease: "power1.out",
+        }, "+=5.5")
+        .call(() => {
+          setActiveSlide((current) => (current + 1) % heroSlides.length);
+        })
+        .set(copyRef.current, { y: -8 })
+        .to(copyRef.current, {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.55,
+          ease: "power2.out",
+        });
+    }, copyRef);
+
+    return () => context.revert();
+  }, []);
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const [firstVideo, secondVideo] = videoRefs.current;
+    if (!firstVideo || !secondVideo) return;
+
+    const videos = [firstVideo, secondVideo];
+    let activeVideo = 0;
+    let transitioning = false;
+
+    const switchVideo = (currentIndex: number) => {
+      if (currentIndex !== activeVideo || transitioning) return;
+
+      const outgoing = videos[currentIndex];
+      const nextIndex = (currentIndex + 1) % videos.length;
+      const incoming = videos[nextIndex];
+      transitioning = true;
+      incoming.currentTime = 0;
+
+      void incoming
+        .play()
+        .then(() => {
+          gsap.to(incoming, {
+            autoAlpha: 1,
+            duration: 0.9,
+            ease: "power1.inOut",
+          });
+          gsap.to(outgoing, {
+            autoAlpha: 0,
+            duration: 0.9,
+            ease: "power1.inOut",
+            onComplete: () => {
+              outgoing.pause();
+              outgoing.currentTime = 0;
+              activeVideo = nextIndex;
+              transitioning = false;
+            },
+          });
+        })
+        .catch(() => {
+          transitioning = false;
+          outgoing.currentTime = 0;
+          void outgoing.play().catch(() => undefined);
+        });
+    };
+
+    const handlers = videos.map((_, index) => () => switchVideo(index));
+    videos.forEach((video, index) => {
+      video.addEventListener("ended", handlers[index]);
+    });
+    void firstVideo.play().catch(() => undefined);
 
     return () => {
-      window.clearInterval(interval);
-      if (revealTimeout !== undefined) {
-        window.clearTimeout(revealTimeout);
-      }
+      videos.forEach((video, index) => {
+        video.removeEventListener("ended", handlers[index]);
+        video.pause();
+      });
     };
   }, []);
 
   return (
     <section className="relative isolate flex min-h-[620px] items-center overflow-hidden bg-[#07152e] md:min-h-[680px]">
-      {heroSlides.map((item, index) => (
-        <Image
-          key={item.heading}
-          src={item.image}
-          alt=""
-          aria-hidden="true"
-          fill
-          priority={index === 0}
-          sizes="100vw"
-          className={`object-cover object-center transition-opacity duration-500 ${
-            index === activeSlide && isVisible ? "opacity-100" : "opacity-0"
-          }`}
-        />
-      ))}
+      <video
+        ref={(element) => {
+          videoRefs.current[0] = element;
+        }}
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover"
+        style={{ opacity: 1 }}
+        muted
+        playsInline
+        preload="auto"
+        poster="/images/medical-team.avif"
+      >
+        <source src="/videos/lab-analyzers.mp4" type="video/mp4" />
+      </video>
+      <video
+        ref={(element) => {
+          videoRefs.current[1] = element;
+        }}
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover"
+        style={{ opacity: 0 }}
+        muted
+        playsInline
+        preload="auto"
+        poster="/images/medical-team.avif"
+      >
+        <source src="/videos/lab-scientist.mp4" type="video/mp4" />
+      </video>
       <div className="absolute inset-0 bg-gradient-to-r from-[#031027]/90 via-[#07152e]/65 to-[#07152e]/30" />
       <div className="absolute inset-0 bg-[#06142d]/15" />
 
@@ -76,13 +157,10 @@ export function HomeHero() {
             Trusted diagnostics in Nigeria
           </p>
           <div
+            ref={copyRef}
             aria-live="polite"
             aria-atomic="true"
-            className={`max-w-[920px] transition-all duration-500 ease-out motion-reduce:transition-none ${
-              isVisible
-                ? "translate-y-0 scale-100 opacity-100"
-                : "translate-y-2 scale-[0.98] opacity-0"
-            }`}
+            className="max-w-[920px]"
           >
             <h1 className="text-[36px] font-semibold leading-[1.12] text-white sm:text-[48px] md:text-[58px] lg:text-[62px]">
               {slide.heading}

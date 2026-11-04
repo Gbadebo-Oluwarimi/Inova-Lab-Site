@@ -101,7 +101,7 @@ export function SiteHeader() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="absolute left-0 top-full w-full border-t border-white/10 bg-[#07152e] px-6 py-6 shadow-2xl lg:hidden"
+          className="absolute left-0 top-full w-full border-t border-white/10  px-6 py-6 shadow-2xl lg:hidden"
         >
           <div className="flex flex-col gap-5">
             {navigation.map((item) => (
