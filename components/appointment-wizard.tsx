@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type ChangeEvent, type FormEvent } from "react";
+import { AppointmentButtonArtwork } from "./appointment-button-artwork";
 
 export type ContactMethod = "in-house" | "video" | "chat" | "email";
 
@@ -143,10 +144,10 @@ export function AppointmentWizard({
         </p>
         <a
           href={emailHref}
-          className="mt-6 flex h-11 items-center justify-center gap-2 rounded-md bg-[#f47721] px-4 text-[12px] font-semibold text-white transition-colors hover:bg-[#df6412]"
+          aria-label="Open email draft"
+          className="group mt-6 block w-full max-w-[200px] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#344054]"
         >
-          Open email draft
-          <span aria-hidden="true">&rarr;</span>
+          <AppointmentButtonArtwork label="Open email draft" />
         </a>
         <button
           type="button"
@@ -357,20 +358,20 @@ export function AppointmentWizard({
           <button
             type="button"
             onClick={continueToNextStep}
-            className="flex h-10 min-w-[118px] items-center justify-center gap-2 rounded-md bg-[#f47721] px-4 text-[12px] font-semibold text-white transition-colors hover:bg-[#df6412] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#344054]"
+            aria-label="Continue to next step"
+            className="group block w-full max-w-[164px] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#344054] sm:max-w-[180px]"
           >
-            Continue
-            <span aria-hidden="true">&rarr;</span>
+            <AppointmentButtonArtwork label="Continue" />
           </button>
         )}
 
         {currentStep === "details" && (
           <button
             type="submit"
-            className="flex h-10 items-center justify-center gap-2 rounded-md bg-[#f47721] px-4 text-[12px] font-semibold text-white transition-colors hover:bg-[#df6412] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#344054]"
+            aria-label="Prepare email request"
+            className="group block w-full max-w-[200px] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#344054]"
           >
-            Prepare email request
-            <span aria-hidden="true">&rarr;</span>
+            <AppointmentButtonArtwork label="Send Request" />
           </button>
         )}
       </div>

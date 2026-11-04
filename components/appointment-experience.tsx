@@ -105,18 +105,18 @@ export function AppointmentExperience() {
         onClick={(event) => {
           if (event.target === dialogRef.current) setIsOpen(false);
         }}
-        className="m-auto max-h-[calc(100dvh-1.5rem)] w-[calc(100%-1.5rem)] max-w-[1020px] overflow-y-auto rounded-lg border-0 bg-white p-0 text-[#101828] shadow-2xl backdrop:bg-[#06142d]/75"
+        className="m-auto max-h-[calc(100dvh-1rem)] w-[calc(100%-1rem)] max-w-[960px] overflow-y-auto rounded-[22px] border-0 bg-white p-0 text-[#101828] shadow-[0_28px_90px_rgba(3,10,30,0.35)] backdrop:bg-[#06142d]/70 sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-2rem)] sm:rounded-[28px]"
       >
         <h2 id="appointment-dialog-title" className="sr-only">
           Book an appointment with Inova
         </h2>
-        <div className="grid min-h-[min(690px,calc(100dvh-24px))] md:grid-cols-[1.08fr_0.92fr]">
-          <div className="relative p-4 sm:p-6 lg:p-8">
+        <div className="grid min-h-[min(650px,calc(100dvh-16px))] md:grid-cols-[1.04fr_0.96fr]">
+          <div className="relative p-5 pt-14 sm:p-7 sm:pt-14 lg:p-9 lg:pt-14">
             <button
               type="button"
               onClick={() => setIsOpen(false)}
               aria-label="Close appointment form"
-              className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full text-[#475467] transition-colors hover:bg-[#f2f4f7] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#344054]"
+              className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-[#f4f6fa] text-[#475467] transition-colors hover:bg-[#e9edf5] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#344054] sm:right-5 sm:top-5"
             >
               <CloseIcon />
             </button>

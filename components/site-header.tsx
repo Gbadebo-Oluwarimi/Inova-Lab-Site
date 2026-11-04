@@ -433,60 +433,70 @@ function Chevron({ open = false }: { open?: boolean }) {
 
 function MegaDropdown({
   data,
+  title,
   close,
 }: {
   data: MenuData;
+  title: string;
   close: () => void;
 }) {
   return (
-    <div className="grid grid-cols-[1.35fr_0.9fr] overflow-hidden rounded-[3px] bg-white text-[#09233d] shadow-[0_18px_55px_rgba(0,0,0,0.16)]">
+    <div className="overflow-hidden rounded-2xl border border-[#dce5ed] bg-white text-[#09233d] shadow-[0_24px_70px_rgba(3,20,40,0.24)]">
+      <div className="border-b border-[#e7edf2] px-7 py-5 lg:px-8">
+      
+        <h2 className="mt-1 text-[20px] font-semibold tracking-[-0.02em] text-[#09233d]">{title}</h2>
+      </div>
+      <div className="grid grid-cols-[1.35fr_0.9fr]">
 
       {/* LEFT COLUMN */}
-      <div className="space-y-5 p-6 lg:p-8">
+      <div className="space-y-2 p-5 lg:p-6">
         {data.featured.map((item) => (
           <Link
             key={item.title}
             href={item.href}
             onClick={close}
-            className="group flex items-start gap-4 rounded-md"
+            className="group flex items-start gap-4 rounded-xl border border-transparent p-3 transition-colors hover:border-[#dcecf5] hover:bg-[#f4faff] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#168bc0]"
           >
             <DropdownIcon icon={item.icon} />
 
-            <div className="pt-0.5">
-              <h3 className="text-[15px] font-semibold text-[#071b35] transition-colors group-hover:text-[#2563eb]">
+            <div className="min-w-0 flex-1 pt-0.5">
+              <h3 className="text-[15px] font-semibold text-[#071b35] transition-colors group-hover:text-[#0879aa]">
                 {item.title}
               </h3>
 
-              <p className="mt-1 max-w-[250px] text-[13px] leading-[1.65] text-[#526174]">
+              <p className="mt-1 max-w-[300px] text-[13px] leading-[1.55] text-[#526174]">
                 {item.description}
               </p>
             </div>
+            <span aria-hidden="true" className="mt-1 text-lg leading-none text-[#92a5b5] transition-transform group-hover:translate-x-1 group-hover:text-[#0879aa]">→</span>
           </Link>
         ))}
       </div>
 
       {/* RIGHT COLUMN */}
-      <div className="space-y-7 bg-[#f6f9fb] p-6 lg:p-8">
+      <div className="space-y-6 border-l border-[#e7edf2] bg-[#f7fafc] p-5 lg:p-6">
         {data.groups.map((group) => (
           <div key={group.heading}>
-            <p className="mb-3 text-[10px] font-bold tracking-[1.2px] text-[#60758a]">
+            <p className="mb-2 px-3 text-[10px] font-bold tracking-[1.2px] text-[#60758a]">
               {group.heading}
             </p>
 
-            <div className="space-y-2.5">
+            <div className="space-y-1">
               {group.links.map((link) => (
                 <Link
                   key={link.title}
                   href={link.href}
                   onClick={close}
-                  className="block text-[13px] font-semibold text-[#102b46] transition-colors hover:text-[#2873df]"
+                  className="group flex min-h-10 items-center justify-between gap-3 rounded-lg px-3 text-[13px] font-semibold text-[#102b46] transition-colors hover:bg-white hover:text-[#0879aa] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-[#168bc0]"
                 >
                   {link.title}
+                  <span aria-hidden="true" className="text-[#92a5b5] transition-transform group-hover:translate-x-1 group-hover:text-[#0879aa]">→</span>
                 </Link>
               ))}
             </div>
           </div>
         ))}
+      </div>
       </div>
     </div>
   );
@@ -593,11 +603,12 @@ export function SiteHeader() {
       {activeMenu && (
         <div
           id="desktop-mega-dropdown"
-          className="absolute left-1/2 top-full hidden w-[min(850px,calc(100vw-48px))] -translate-x-1/2 pt-2 lg:block"
+          className="absolute left-[max(24px,calc((100vw-1440px)/2+230px))] top-full hidden w-[min(850px,calc(100vw-48px))] pt-2 lg:block"
         >
           <div className="inova-dropdown-animation">
             <MegaDropdown
               data={menuData[activeMenu]}
+              title={activeMenu}
               close={() => setActiveMenu(null)}
             />
           </div>
@@ -638,7 +649,7 @@ export function SiteHeader() {
                 <button
                   type="button"
                   onClick={() => setMobileActiveMenu(null)}
-                  className="flex items-center justify-center gap-2 self-center py-2 text-[12px] font-semibold text-[#536ba2]"
+                  className="flex min-h-11 items-center gap-2 self-start rounded-lg px-3 text-[13px] font-semibold text-[#31518e] transition-colors hover:bg-[#e9f0fa]"
                 >
                   <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
                     <path d="M19 12H5m7 7-7-7 7-7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
@@ -646,42 +657,45 @@ export function SiteHeader() {
                   All sections
                 </button>
 
-                <div className="flex min-h-0 flex-1 flex-col items-center justify-center overflow-y-auto py-5 text-center" aria-live="polite">
-                  <h2 className="mb-6 text-[20px] font-semibold text-[#14264a]">
+                <div className="flex min-h-0 flex-1 flex-col overflow-y-auto py-4 text-left" aria-live="polite">
+                  <h2 className="mb-4 px-1 text-[21px] font-semibold text-[#14264a]">
                     {mobileActiveMenu}
                   </h2>
 
-                  <div className="w-full space-y-7">
-                    {activeMobileData.featured.map((link) => (
-                      <Link
-                        key={link.title}
-                        href={link.href}
-                        onClick={closeMenus}
-                        className="mx-auto flex max-w-[320px] flex-col items-center text-center"
-                      >
-                        <span className="text-[15px] font-medium text-[#1d2939]">
-                          {link.title}
-                        </span>
-                        <span className="mt-1 max-w-[280px] text-[11px] leading-relaxed text-[#667085]">
-                          {link.description}
-                        </span>
-                      </Link>
-                    ))}
+                  <div className="w-full space-y-6">
+                    <div className="space-y-2">
+                      {activeMobileData.featured.map((link) => (
+                        <Link
+                          key={link.title}
+                          href={link.href}
+                          onClick={closeMenus}
+                          className="group flex min-h-[68px] items-center gap-3 rounded-xl border border-[#dfe7f0] bg-white px-4 py-3 shadow-[0_2px_8px_rgba(16,35,75,0.04)] transition-colors hover:border-[#b8d7e8] hover:bg-[#f7fbff] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-[#31518e]"
+                        >
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#eaf3fb] text-[17px] font-semibold text-[#147aa8]" aria-hidden="true">{link.icon}</span>
+                          <span className="min-w-0 flex-1">
+                            <span className="block text-[14px] font-semibold text-[#1d2939]">{link.title}</span>
+                            <span className="mt-1 block text-[12px] leading-relaxed text-[#667085]">{link.description}</span>
+                          </span>
+                          <span aria-hidden="true" className="text-lg text-[#8b9bad] transition-transform group-hover:translate-x-1">→</span>
+                        </Link>
+                      ))}
+                    </div>
 
                     {activeMobileData.groups.map((group) => (
-                      <div key={group.heading}>
-                        <p className="mb-3 text-[9px] font-bold tracking-[1.4px] text-[#667085]">
+                      <div key={group.heading} className="border-t border-[#e1e7ef] pt-4">
+                        <p className="mb-2 px-1 text-[10px] font-bold tracking-[1.2px] text-[#667085]">
                           {group.heading}
                         </p>
-                        <div className="flex flex-col items-center gap-3">
+                        <div className="space-y-1">
                           {group.links.map((link) => (
                             <Link
                               key={link.title}
                               href={link.href}
                               onClick={closeMenus}
-                              className="text-[14px] font-medium text-[#344054] transition-colors hover:text-[#31518e]"
+                              className="group flex min-h-11 items-center justify-between rounded-lg px-3 text-[14px] font-medium text-[#344054] transition-colors hover:bg-white hover:text-[#31518e] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-[#31518e]"
                             >
                               {link.title}
+                              <span aria-hidden="true" className="text-[#8b9bad] transition-transform group-hover:translate-x-1">→</span>
                             </Link>
                           ))}
                         </div>
@@ -698,10 +712,10 @@ export function SiteHeader() {
                     type="button"
                     onClick={() => setMobileActiveMenu(item.name)}
                     aria-expanded={false}
-                    className="relative flex w-full items-center justify-center py-4 text-center text-[17px] font-medium text-[#14264a]"
+                    className="group flex min-h-[60px] w-full items-center justify-between border-b border-[#e4eaf2] px-3 text-left text-[18px] font-semibold text-[#14264a] transition-colors hover:bg-white hover:text-[#31518e]"
                   >
                     {item.name}
-                    <span className="absolute right-3 text-[#667085]">
+                    <span className="text-[#667085] transition-transform group-hover:translate-x-1">
                       <Chevron />
                     </span>
                   </button>
