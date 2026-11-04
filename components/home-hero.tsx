@@ -178,8 +178,8 @@ export function HomeHero() {
       <div className="absolute inset-0 bg-[#06142d]/15" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 pb-16 pt-36 sm:px-10 sm:pt-40 md:px-12 md:pb-20 md:pt-44 lg:px-[7%]">
-        <div className="max-w-[900px]">
-          <p className="mb-5 text-[11px] font-semibold uppercase tracking-[0.18em] text-[#cbd5ff] sm:text-xs">
+        <div className="mx-auto max-w-[900px] text-center md:mx-0 md:text-left">
+          <p className="mb-5 text-[10px] font-semibold uppercase tracking-[0.18em] text-[#cbd5ff] sm:text-xs">
             Trusted diagnostics in Nigeria
           </p>
           <div
@@ -188,20 +188,20 @@ export function HomeHero() {
             aria-atomic="true"
             className="max-w-[920px]"
           >
-            <h1 className="text-[36px] font-semibold leading-[1.12] text-white sm:text-[48px] md:text-[58px] lg:text-[62px]">
+            <h1 className="text-[30px] font-semibold leading-[1.12] text-white sm:text-[48px] md:text-[58px] lg:text-[62px]">
               {slide.heading}
               <br className="hidden sm:block" />
               {slide.secondLine} {" "}
               <span className="font-light italic">{slide.emphasis}</span>
             </h1>
-            <p className="mt-6 max-w-[580px] text-[16px] leading-relaxed text-white/90 sm:mt-7 sm:text-[19px]">
+            <p className="mx-auto mt-5 max-w-[580px] text-[14px] leading-relaxed text-white/90 sm:mt-7 sm:text-[19px] md:mx-0 md:text-[16px]">
               {slide.description}
             </p>
           </div>
-          <div className="mt-9 sm:mt-11">
-            <AppointmentButton />
+          <div className="mt-7 flex justify-center sm:mt-11 md:justify-start">
+            <AppointmentButton mobileCompact />
           </div>
-          <p className="mt-6 text-xs font-medium text-white/75 sm:mt-8 sm:text-[13px]">
+          <p className="mt-5 text-[11px] font-medium text-white/75 sm:mt-8 sm:text-[13px] md:text-xs">
             Tests and medical reports by certified specialists.
           </p>
         </div>

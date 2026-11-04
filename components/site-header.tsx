@@ -508,6 +508,9 @@ export function SiteHeader() {
     setMobileActiveMenu(null);
     setMobileMenuOpen(false);
   };
+  const activeMobileData = mobileActiveMenu
+    ? menuData[mobileActiveMenu]
+    : null;
 
   return (
     <header
@@ -606,90 +609,106 @@ export function SiteHeader() {
         <nav
           id="mobile-navigation"
           aria-label="Mobile navigation"
-          className="absolute left-0 top-full max-h-[80vh] w-full overflow-y-auto border-t border-white/10 bg-[#07152e]/[0.98] px-5 py-5 shadow-2xl backdrop-blur-xl lg:hidden"
+          className="fixed inset-0 z-[60] flex h-[100dvh] w-full flex-col overflow-y-auto bg-[#f7f8fc] px-6 pb-8 pt-5 text-[#10234b] lg:hidden"
         >
-          <div className="mx-auto flex max-w-[1440px] flex-col">
+          <div className="mx-auto flex w-full max-w-[420px] items-center justify-between">
+            <div className="flex items-center gap-2 text-[#17356d]">
+              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#dce5f6]">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
+                  <path d="M10 3h4v7h7v4h-7v7h-4v-7H3v-4h7V3Z" fill="currentColor" />
+                </svg>
+              </span>
+              <span className="text-[19px] font-semibold leading-none">inova</span>
+            </div>
+            <button
+              type="button"
+              onClick={closeMenus}
+              aria-label="Close navigation"
+              className="flex h-10 w-10 items-center justify-center rounded-full text-[#344054] transition-colors hover:bg-[#e9edf5] focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#344054]"
+            >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" aria-hidden="true">
+                <path d="m6 6 12 12M18 6 6 18" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
 
-            {navigation.map((item) => {
-              const isOpen = mobileActiveMenu === item.name;
-              const data = menuData[item.name];
-
-              return (
-                <div
-                  key={item.name}
-                  className="border-b border-white/10"
+          <div className="mx-auto mt-8 flex w-full max-w-[420px] min-h-0 flex-1 flex-col">
+            {activeMobileData ? (
+              <div className="flex min-h-0 flex-1 flex-col">
+                <button
+                  type="button"
+                  onClick={() => setMobileActiveMenu(null)}
+                  className="flex items-center justify-center gap-2 self-center py-2 text-[12px] font-semibold text-[#536ba2]"
                 >
+                  <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" aria-hidden="true">
+                    <path d="M19 12H5m7 7-7-7 7-7" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  All sections
+                </button>
+
+                <div className="flex min-h-0 flex-1 flex-col items-center justify-center overflow-y-auto py-5 text-center" aria-live="polite">
+                  <h2 className="mb-6 text-[20px] font-semibold text-[#14264a]">
+                    {mobileActiveMenu}
+                  </h2>
+
+                  <div className="w-full space-y-7">
+                    {activeMobileData.featured.map((link) => (
+                      <Link
+                        key={link.title}
+                        href={link.href}
+                        onClick={closeMenus}
+                        className="mx-auto flex max-w-[320px] flex-col items-center text-center"
+                      >
+                        <span className="text-[15px] font-medium text-[#1d2939]">
+                          {link.title}
+                        </span>
+                        <span className="mt-1 max-w-[280px] text-[11px] leading-relaxed text-[#667085]">
+                          {link.description}
+                        </span>
+                      </Link>
+                    ))}
+
+                    {activeMobileData.groups.map((group) => (
+                      <div key={group.heading}>
+                        <p className="mb-3 text-[9px] font-bold tracking-[1.4px] text-[#667085]">
+                          {group.heading}
+                        </p>
+                        <div className="flex flex-col items-center gap-3">
+                          {group.links.map((link) => (
+                            <Link
+                              key={link.title}
+                              href={link.href}
+                              onClick={closeMenus}
+                              className="text-[14px] font-medium text-[#344054] transition-colors hover:text-[#31518e]"
+                            >
+                              {link.title}
+                            </Link>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <nav aria-label="Mobile menu sections" className="flex flex-1 flex-col justify-center">
+                {navigation.map((item) => (
                   <button
+                    key={item.name}
                     type="button"
-                    onClick={() =>
-                      setMobileActiveMenu(
-                        isOpen ? null : item.name
-                      )
-                    }
-                    aria-expanded={isOpen}
-                    className="relative flex w-full items-center justify-center py-3.5 text-center text-[14px] font-medium text-white"
+                    onClick={() => setMobileActiveMenu(item.name)}
+                    aria-expanded={false}
+                    className="relative flex w-full items-center justify-center py-4 text-center text-[17px] font-medium text-[#14264a]"
                   >
                     {item.name}
-                    <span className="absolute right-1">
-                      <Chevron open={isOpen} />
+                    <span className="absolute right-3 text-[#667085]">
+                      <Chevron />
                     </span>
                   </button>
+                ))}
+              </nav>
+            )}
 
-                  {isOpen && (
-                    <div className="space-y-5 pb-5 pl-2">
-
-                      {/* MOBILE FEATURED LINKS */}
-                      {data.featured.map((link) => (
-                        <Link
-                          key={link.title}
-                          href={link.href}
-                          onClick={closeMenus}
-                          className="flex flex-col items-center gap-2 text-center"
-                        >
-                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-[#9ee7ff]">
-                            {link.icon}
-                          </span>
-
-                          <span>
-                            <span className="block text-[13px] font-semibold text-white">
-                              {link.title}
-                            </span>
-
-                            <span className="mt-1 block max-w-[260px] text-[11px] leading-relaxed text-white/60">
-                              {link.description}
-                            </span>
-                          </span>
-                        </Link>
-                      ))}
-
-                      {/* MOBILE LINK GROUPS */}
-                      {data.groups.map((group) => (
-                        <div key={group.heading}>
-                          <p className="mb-3 text-center text-[9px] font-bold tracking-widest text-[#aabbd0]">
-                            {group.heading}
-                          </p>
-
-                          <div className="grid grid-cols-2 gap-3 text-center">
-                            {group.links.map((link) => (
-                              <Link
-                                key={link.title}
-                                href={link.href}
-                                onClick={closeMenus}
-                                className="text-[12px] text-white/85 transition-colors hover:text-[#9ee7ff]"
-                              >
-                                {link.title}
-                              </Link>
-                            ))}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-            {/* MOBILE APPOINTMENT BUTTON */}
             <div className="flex justify-center pt-5">
               <AppointmentButton compact />
             </div>
