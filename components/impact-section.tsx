@@ -150,31 +150,18 @@ export default function ImpactSection() {
       aria-labelledby="impact-heading"
       className="relative overflow-hidden bg-[#050711] py-20 text-white sm:py-24 lg:py-28"
     >
+      <h2 id="impact-heading" className="sr-only">
+        Inova impact
+      </h2>
       <div className="relative mx-auto max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <div className="mb-12 flex flex-col justify-between gap-8 md:mb-14 md:flex-row md:items-start">
-          <div className="max-w-[430px]">
-            <span className="mb-4 block text-[10px] font-semibold uppercase tracking-[3px] text-[#aebfff]">
-              THE INOVA DIFFERENCE
-            </span>
-            <h2
-              id="impact-heading"
-              className="text-[24px] font-medium leading-[1.35] text-white sm:text-[29px]"
-            >
-              Accurate diagnostics.
-              <br />
-              Better healthcare.
-              <br />
-              <span className="text-[#aebfff]">A healthier tomorrow.</span>
-            </h2>
-          </div>
-
-          <div className="flex max-w-[440px] flex-col justify-between gap-6 md:items-end">
+          <div className="flex max-w-[440px] flex-col justify-between gap-6 md:ml-auto md:items-end md:text-right">
             <p className="text-[14px] leading-[1.8] text-white/65 md:text-right">
               Discover how Inova is committed to advancing healthcare through
               reliable diagnostic services, modern laboratory technology and
               professional medical expertise.
             </p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-3 lg:hidden">
               <button
                 type="button"
                 onClick={() => slide("left")}
@@ -198,7 +185,7 @@ export default function ImpactSection() {
         <div
           ref={sliderRef}
           aria-label="Inova stories"
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-5"
+          className="flex snap-x snap-mandatory gap-4 overflow-x-auto scroll-smooth pb-5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:gap-5 lg:grid lg:grid-cols-4 lg:gap-4 lg:overflow-visible lg:pb-0"
         >
           {stories.map((story, index) => (
             <Link
@@ -206,9 +193,9 @@ export default function ImpactSection() {
               href={story.href}
               aria-roledescription="slide"
               aria-label={`${index + 1} of ${stories.length}: ${story.title}`}
-              className="group relative min-w-[82%] snap-start overflow-hidden rounded-md border border-white/10 bg-[#101522] sm:min-w-[45%] lg:min-w-[30%] lg:flex-none"
+              className="group min-w-[82%] snap-start sm:min-w-[45%] lg:min-w-0"
             >
-              <div className="relative h-[300px] overflow-hidden sm:h-[330px] lg:h-[340px]">
+              <div className="relative aspect-[0.82] overflow-hidden rounded-sm bg-[#101522]">
                 <Image
                   src={story.image}
                   alt={story.title}
@@ -216,23 +203,22 @@ export default function ImpactSection() {
                   sizes="(max-width: 640px) 82vw, (max-width: 1024px) 45vw, 25vw"
                   className="object-cover transition-transform duration-700 group-hover:scale-105"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#030711]/95 via-[#030711]/15 to-transparent" />
-                <span className="absolute left-4 top-4 text-[9px] font-semibold tracking-[1.5px] text-white/90">
+              </div>
+              <div className="pt-3">
+                <span className="text-[8px] font-semibold uppercase tracking-[1.2px] text-[#aebfff]">
                   {story.category}
                 </span>
-                <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
-                  <h3 className="text-[18px] font-semibold leading-tight text-white">
-                    {story.title}
-                  </h3>
-                  <p className="mt-2 max-w-[270px] text-[11px] leading-[1.7] text-white/75">
-                    {story.description}
-                  </p>
-                  <div className="mt-5 flex items-center gap-2 text-[11px] font-semibold text-[#dce0ff]">
-                    Explore more
-                    <span className="transition-transform duration-300 group-hover:translate-x-1.5">
-                      <ArrowIcon direction="right" />
-                    </span>
-                  </div>
+                <h3 className="mt-1 text-[13px] font-semibold leading-snug text-white sm:text-[14px]">
+                  {story.title}
+                </h3>
+                <p className="mt-1.5 text-[10px] leading-[1.55] text-white/60">
+                  {story.description}
+                </p>
+                <div className="mt-2 flex items-center gap-1.5 text-[10px] font-semibold text-[#dce0ff]">
+                  Explore more
+                  <span className="transition-transform duration-300 group-hover:translate-x-1">
+                    <ArrowIcon direction="right" />
+                  </span>
                 </div>
               </div>
             </Link>
@@ -243,7 +229,7 @@ export default function ImpactSection() {
           <p className="text-[10px] tracking-wide text-white/40">
             DISCOVER MORE ABOUT INOVA
           </p>
-          <div className="flex items-center gap-2" aria-label="Select story">
+          <div className="flex items-center gap-2 lg:hidden" aria-label="Select story">
             {stories.map((story, index) => (
               <button
                 key={story.id}

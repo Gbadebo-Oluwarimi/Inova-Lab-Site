@@ -3,6 +3,7 @@ import { HomeHero } from "@/components/home-hero";
 import { BusinessSolutions } from "@/components/business-solutions";
 import { InsuranceLogoCarousel } from "@/components/insurance-logo-carousel";
 import ImpactSection from "@/components/impact-section";
+import InteractiveGallery from "@/components/interactive-gallery";
 import { createPageMetadata } from "@/lib/seo/metadata";
 
 export const metadata = createPageMetadata({
@@ -38,6 +39,7 @@ export default function Home() {
         <InsuranceLogoCarousel />
         <BusinessSolutions />
         <ImpactSection />
+        <InteractiveGallery />
       </main>
     </>
   );
